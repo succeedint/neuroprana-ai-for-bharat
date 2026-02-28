@@ -205,3 +205,30 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Mac
+.DS_Store
+
+# Node
+node_modules/
+npm-debug.log
+
+# Logs
+*.log
+
+# Streamlit
+.streamlit/
+
+# Serverless build
+.serverless/
