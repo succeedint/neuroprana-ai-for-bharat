@@ -1,0 +1,271 @@
+{
+  "/Users/binduchintha/Desktop/neuroprana-backend/serverless.yml": {
+    "versionFramework": "4.33.0",
+    "servicePath": "/Users/binduchintha/Desktop/neuroprana-backend/serverless.yml",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "service": "neuroprana-backend",
+      "provider": {
+        "name": "aws",
+        "runtime": "python3.11",
+        "region": "us-east-1",
+        "architecture": "x86_64",
+        "stage": "dev",
+        "versionFunctions": true,
+        "compiledCloudFormationTemplate": {
+          "AWSTemplateFormatVersion": "2010-09-09",
+          "Description": "The AWS CloudFormation template for this Serverless application",
+          "Resources": {
+            "ApiLogGroup": {
+              "Type": "AWS::Logs::LogGroup",
+              "Properties": {
+                "LogGroupName": "/aws/lambda/neuroprana-backend-dev-api"
+              }
+            },
+            "IamRoleLambdaExecution": {
+              "Type": "AWS::IAM::Role",
+              "Properties": {
+                "AssumeRolePolicyDocument": {
+                  "Version": "2012-10-17",
+                  "Statement": [
+                    {
+                      "Effect": "Allow",
+                      "Principal": {
+                        "Service": [
+                          "lambda.amazonaws.com"
+                        ]
+                      },
+                      "Action": [
+                        "sts:AssumeRole"
+                      ]
+                    }
+                  ]
+                },
+                "Policies": [
+                  {
+                    "PolicyName": {
+                      "Fn::Join": [
+                        "-",
+                        [
+                          "neuroprana-backend",
+                          "dev",
+                          "lambda"
+                        ]
+                      ]
+                    },
+                    "PolicyDocument": {
+                      "Version": "2012-10-17",
+                      "Statement": [
+                        {
+                          "Effect": "Allow",
+                          "Action": [
+                            "logs:CreateLogStream",
+                            "logs:CreateLogGroup",
+                            "logs:TagResource"
+                          ],
+                          "Resource": [
+                            {
+                              "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/neuroprana-backend-dev*:*"
+                            }
+                          ]
+                        },
+                        {
+                          "Effect": "Allow",
+                          "Action": [
+                            "logs:PutLogEvents"
+                          ],
+                          "Resource": [
+                            {
+                              "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/neuroprana-backend-dev*:*:*"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "Path": "/",
+                "RoleName": {
+                  "Fn::Join": [
+                    "-",
+                    [
+                      "neuroprana-backend",
+                      "dev",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      "lambdaRole"
+                    ]
+                  ]
+                }
+              }
+            }
+          },
+          "Outputs": {
+            "ServerlessDeploymentBucketName": {
+              "Value": "serverless-framework-deployments-us-east-1-1def850d-abfa"
+            }
+          }
+        }
+      },
+      "functions": {
+        "api": {
+          "handler": "app.handler",
+          "events": [
+            {
+              "httpApi": "*"
+            }
+          ],
+          "name": "neuroprana-backend-dev-api",
+          "module": "."
+        }
+      },
+      "package": {
+        "patterns": [
+          "!node_modules/**",
+          "!.venv/**",
+          "!__pycache__/**",
+          "!*.pyc"
+        ],
+        "artifactsS3KeyDirname": "serverless/neuroprana-backend/dev/code-artifacts",
+        "deploymentBucket": "serverless-framework-deployments-us-east-1-1def850d-abfa"
+      },
+      "custom": {
+        "pythonRequirements": {
+          "dockerizePip": true
+        }
+      }
+    },
+    "provider": {
+      "name": "aws",
+      "runtime": "python3.11",
+      "region": "us-east-1",
+      "architecture": "x86_64",
+      "stage": "dev",
+      "versionFunctions": true,
+      "compiledCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "ApiLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/neuroprana-backend-dev-api"
+            }
+          },
+          "IamRoleLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": [
+                      "sts:AssumeRole"
+                    ]
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": {
+                    "Fn::Join": [
+                      "-",
+                      [
+                        "neuroprana-backend",
+                        "dev",
+                        "lambda"
+                      ]
+                    ]
+                  },
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:CreateLogStream",
+                          "logs:CreateLogGroup",
+                          "logs:TagResource"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/neuroprana-backend-dev*:*"
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:PutLogEvents"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/neuroprana-backend-dev*:*:*"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "Path": "/",
+              "RoleName": {
+                "Fn::Join": [
+                  "-",
+                  [
+                    "neuroprana-backend",
+                    "dev",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    "lambdaRole"
+                  ]
+                ]
+              }
+            }
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": "serverless-framework-deployments-us-east-1-1def850d-abfa"
+          }
+        }
+      }
+    },
+    "dashboard": {
+      "isEnabledForService": false,
+      "requiredAuthentication": false,
+      "orgFeaturesInUse": null,
+      "orgObservabilityIntegrations": null,
+      "serviceAppId": null,
+      "serviceProvider": null,
+      "instanceParameters": null
+    },
+    "error": {
+      "message": "Running \"docker run --rm -v /Users/binduchintha/Library/Caches/serverless-python-requirements/079a5ef9f62987f0c53fa255e26a0705ba2c155a6c92e80d61e4f05ae1c1ae09_x86_64_slspyc:/var/task:z -v /Users/binduchintha/Library/Caches/serverless-python-requirements/downloadCacheslspyc:/var/useDownloadCache:z -u 0 public.ecr.aws/sam/build-python3.11:latest-x86_64 python3.11 -m pip install --target /var/task/ -r /var/task/requirements.txt --cache-dir /var/useDownloadCache\" failed.\nError: Unable to find image 'public.ecr.aws/sam/build-python3.11:latest-x86_64' locally\nlatest-x86_64: Pulling from sam/build-python3.11\n11d4b992cb98: Pulling fs layer\n93a9e8664e76: Pulling fs layer\nf4a2d588f7bf: Pulling fs layer\n8ec8c3e2cf1e: Pulling fs layer\n58486276c1e0: Pulling fs layer\nfbbec5865adb: Pulling fs layer\n836b63d49228: Pulling fs layer\n3316fded8343: Pulling fs layer\n79ff7d9b527e: Pulling fs layer\n6e2fa84df6d1: Pulling fs layer\ne54ddce177fd: Pulling fs layer\nb208a9106a83: Pulling fs layer\n5c9ac9feb575: Pulling fs layer\ncb1a114e2177: Pulling fs layer\ne06c22ea3f6c: Pulling fs layer\n11763fa5eba1: Pulling fs layer\n8ec8c3e2cf1e: Download complete\ne54ddce177fd: Download complete\nfbbec5865adb: Download complete\n79ff7d9b527e: Download complete\n5c9ac9feb575: Download complete\ne06c22ea3f6c: Download complete\nf4a2d588f7bf: Download complete\ncb1a114e2177: Download complete\n6e2fa84df6d1: Download complete\n11763fa5eba1: Download complete\n3316fded8343: Download complete\n11d4b992cb98: Download complete\n836b63d49228: Download complete\n58486276c1e0: Download complete\n8ec8c3e2cf1e: Pull complete\ne54ddce177fd: Pull complete\n11d4b992cb98: Pull complete\n6e2fa84df6d1: Pull complete\nb208a9106a83: Download complete\n93a9e8664e76: Download complete\ne06c22ea3f6c: Pull complete\nb208a9106a83: Pull complete\n93a9e8664e76: Pull complete\n58486276c1e0: Pull complete\n5c9ac9feb575: Pull complete\n3316fded8343: Pull complete\ncb1a114e2177: Pull complete\nfbbec5865adb: Pull complete\n79ff7d9b527e: Pull complete\n11763fa5eba1: Pull complete\nf4a2d588f7bf: Pull complete\n836b63d49228: Pull complete\nDigest: sha256:90661b3157aa0ecebae806b2cb1d673132c4eba4b1c44a31f0f352fddd6f313d\nStatus: Downloaded newer image for public.ecr.aws/sam/build-python3.11:latest-x86_64\nWARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested\n  error: subprocess-exited-with-error\n  \n  × pip subprocess to install build dependencies did not run successfully.\n  │ exit code: 1\n  ╰─> [56 lines of output]\n      Collecting meson-python<0.21.0,>=0.15.0\n        Downloading meson_python-0.19.0-py3-none-any.whl.metadata (2.1 kB)\n      Collecting Cython<3.3.0,>=3.0.8\n        Downloading cython-3.2.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (7.5 kB)\n      Collecting pybind11<3.1.0,>=2.13.2\n        Downloading pybind11-3.0.2-py3-none-any.whl.metadata (10 kB)\n      Collecting pythran<0.19.0,>=0.14.0\n        Downloading pythran-0.18.1-py3-none-any.whl.metadata (7.9 kB)\n      Collecting numpy<2.7,>=2.0.0\n        Downloading numpy-2.4.2.tar.gz (20.7 MB)\n           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 20.7/20.7 MB 59.5 MB/s eta 0:00:00\n        Installing build dependencies: started\n        Installing build dependencies: finished with status 'done'\n        Getting requirements to build wheel: started\n        Getting requirements to build wheel: finished with status 'done'\n        Installing backend dependencies: started\n        Installing backend dependencies: finished with status 'done'\n        Preparing metadata (pyproject.toml): started\n        Preparing metadata (pyproject.toml): finished with status 'error'\n        error: subprocess-exited-with-error\n      \n        × Preparing metadata (pyproject.toml) did not run successfully.\n        │ exit code: 1\n        ╰─> [19 lines of output]\n            + /var/lang/bin/python3.11 /tmp/pip-install-lq4_eit0/numpy_d76952eda6e749c6843a499a3e853217/vendored-meson/meson/meson.py setup /tmp/pip-install-lq4_eit0/numpy_d76952eda6e749c6843a499a3e853217 /tmp/pip-install-lq4_eit0/numpy_d76952eda6e749c6843a499a3e853217/.mesonpy-rrxu5jk7 -Dbuildtype=release -Db_ndebug=if-release -Db_vscrt=md --native-file=/tmp/pip-install-lq4_eit0/numpy_d76952eda6e749c6843a499a3e853217/.mesonpy-rrxu5jk7/meson-python-native-file.ini\n            The Meson build system\n            Version: 1.9.2\n            Source dir: /tmp/pip-install-lq4_eit0/numpy_d76952eda6e749c6843a499a3e853217\n            Build dir: /tmp/pip-install-lq4_eit0/numpy_d76952eda6e749c6843a499a3e853217/.mesonpy-rrxu5jk7\n            Build type: native build\n            Project name: NumPy\n            Project version: 2.4.2\n            C compiler for the host machine: cc (gcc 7.3.1 \"cc (GCC) 7.3.1 20180712 (Red Hat 7.3.1-18)\")\n            C linker for the host machine: cc ld.bfd 2.29.1-31\n            C++ compiler for the host machine: c++ (gcc 7.3.1 \"c++ (GCC) 7.3.1 20180712 (Red Hat 7.3.1-18)\")\n            C++ linker for the host machine: c++ ld.bfd 2.29.1-31\n            Cython compiler for the host machine: cython (cython 3.2.4)\n            Host machine cpu family: x86_64\n            Host machine cpu: x86_64\n      \n            ../meson.build:25:4: ERROR: Problem encountered: NumPy requires GCC >= 9.3\n      \n            A full log can be found at /tmp/pip-install-lq4_eit0/numpy_d76952eda6e749c6843a499a3e853217/.mesonpy-rrxu5jk7/meson-logs/meson-log.txt\n            [end of output]\n      \n        note: This error originates from a subprocess, and is likely not a problem with pip.\n      error: metadata-generation-failed\n      \n      × Encountered error while generating package metadata.\n      ╰─> See above for output.\n      \n      note: This is an issue with the package mentioned above, not pip.\n      hint: See above for details.\n      \n      [notice] A new release of pip is available: 24.0 -> 26.0.1\n      [notice] To update, run: pip install --upgrade pip\n      [end of output]\n  \n  note: This error originates from a subprocess, and is likely not a problem with pip.\nerror: subprocess-exited-with-error\n\n× pip subprocess to install build dependencies did not run successfully.\n│ exit code: 1\n╰─> See above for output.\n\nnote: This error originates from a subprocess, and is likely not a problem with pip.\n\n[notice] A new release of pip is available: 24.0 -> 26.0.1\n[notice] To update, run: pip install --upgrade pip\nCommand output: Collecting fastapi==0.95.2 (from -r /var/task/requirements.txt (line 1))\n  Downloading fastapi-0.95.2-py3-none-any.whl.metadata (24 kB)\nCollecting joblib==1.3.2 (from -r /var/task/requirements.txt (line 2))\n  Downloading joblib-1.3.2-py3-none-any.whl.metadata (5.4 kB)\nCollecting mangum==0.17.0 (from -r /var/task/requirements.txt (line 3))\n  Downloading mangum-0.17.0-py3-none-any.whl.metadata (3.3 kB)\nCollecting numpy==1.24.4 (from -r /var/task/requirements.txt (line 4))\n  Downloading numpy-1.24.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.6 kB)\nCollecting pandas==1.5.3 (from -r /var/task/requirements.txt (line 5))\n  Downloading pandas-1.5.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (11 kB)\nCollecting scikit-learn==1.6.1 (from -r /var/task/requirements.txt (line 6))\n  Downloading scikit_learn-1.6.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (18 kB)\nCollecting pydantic!=1.7,!=1.7.1,!=1.7.2,!=1.7.3,!=1.8,!=1.8.1,<2.0.0,>=1.6.2 (from fastapi==0.95.2->-r /var/task/requirements.txt (line 1))\n  Downloading pydantic-1.10.26-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (155 kB)\n     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 155.1/155.1 kB 6.8 MB/s eta 0:00:00\nCollecting starlette<0.28.0,>=0.27.0 (from fastapi==0.95.2->-r /var/task/requirements.txt (line 1))\n  Downloading starlette-0.27.0-py3-none-any.whl.metadata (5.8 kB)\nCollecting typing-extensions (from mangum==0.17.0->-r /var/task/requirements.txt (line 3))\n  Downloading typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)\nCollecting python-dateutil>=2.8.1 (from pandas==1.5.3->-r /var/task/requirements.txt (line 5))\n  Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)\nCollecting pytz>=2020.1 (from pandas==1.5.3->-r /var/task/requirements.txt (line 5))\n  Downloading pytz-2025.2-py2.py3-none-any.whl.metadata (22 kB)\nCollecting scipy>=1.6.0 (from scikit-learn==1.6.1->-r /var/task/requirements.txt (line 6))\n  Downloading scipy-1.17.1.tar.gz (30.6 MB)\n     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 30.6/30.6 MB 24.3 MB/s eta 0:00:00\n  Installing build dependencies: started\n  Installing build dependencies: finished with status 'error'",
+      "code": "PYTHON_REQUIREMENTS_DOCKER_COMMAND_FAILED"
+    },
+    "serviceRawFile": "service: neuroprana-backend\n\nprovider:\n  name: aws\n  runtime: python3.11\n  region: us-east-1\n  architecture: x86_64\n\nfunctions:\n  api:\n    handler: app.handler\n    events:\n      - httpApi: \"*\"\n\npackage:\n  patterns:\n    - \"!node_modules/**\"\n    - \"!.venv/**\"\n    - \"!__pycache__/**\"\n    - \"!*.pyc\"\n\ncustom:\n  pythonRequirements:\n    dockerizePip: true",
+    "command": [
+      "deploy"
+    ],
+    "options": {},
+    "orgId": "5b6df32f-bfd9-4a8b-86bb-9e4253c06211",
+    "orgName": "succeedintllc",
+    "userId": "tKlQJF4bZH5WXJdCs6",
+    "userName": "succeedintllc",
+    "serviceProviderAwsAccountId": "311493921100",
+    "serviceProviderAwsCfStackId": null,
+    "serviceProviderAwsCfStackCreated": null,
+    "serviceProviderAwsCfStackUpdated": null,
+    "serviceProviderAwsCfStackStatus": null,
+    "serviceProviderAwsCfStackOutputs": null
+  }
+}

@@ -1,0 +1,24 @@
+service: neuroprana-backend
+
+provider:
+  name: aws
+  runtime: python3.11
+  region: us-east-1
+  architecture: x86_64
+
+functions:
+  api:
+    handler: app.handler
+    events:
+      - httpApi: "*"
+
+package:
+  patterns:
+    - "!node_modules/**"
+    - "!.venv/**"
+    - "!__pycache__/**"
+    - "!*.pyc"
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
